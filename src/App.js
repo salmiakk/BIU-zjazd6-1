@@ -1,23 +1,28 @@
 import logo from './logo.svg';
 import './App.css';
+import useFetch from './useFetch.js';
+
+function Form(){
+
+  const { loading, data, error } = useFetch(
+    'https://randomuser.me/api/'
+  );
+  if(loading) return <h1> Loading...</h1>;
+  if (error) return <h1> ERROR!</h1>;
+  console.log(data.results);
+  return(
+    <div>Name: {data.results[0].name.title}</div>
+  );
+}
+
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        Get random data from the API!
       </header>
+      <Form />
     </div>
   );
 }
